@@ -18,7 +18,7 @@ import com.model2.mvc.service.purchase.PurchaseService;
 public class PurchaseServiceImpl implements PurchaseService{
 	
 	@Autowired
-	@Qualifier("pruchaseDAOImpl")
+	@Qualifier("purchaseDAOImpl")
 	private PurchaseDAO purchaseDAO;
 	
 	public PurchaseServiceImpl() {

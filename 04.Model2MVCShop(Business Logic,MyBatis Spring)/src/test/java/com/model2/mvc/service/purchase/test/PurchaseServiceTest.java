@@ -20,17 +20,17 @@ import com.model2.mvc.service.purchase.PurchaseService;
 
 /*
  *	FileName :  UserServiceTest.java
- * �� JUnit4 (Test Framework) �� Spring Framework ���� Test( Unit Test)
- * �� Spring �� JUnit 4�� ���� ���� Ŭ������ ���� ������ ��� ���� �׽�Ʈ �ڵ带 �ۼ� �� �� �ִ�.
- * �� @RunWith : Meta-data �� ���� wiring(����,DI) �� ��ü ����ü ����
- * �� @ContextConfiguration : Meta-data location ����
- * �� @Test : �׽�Ʈ ���� �ҽ� ����
+ * 占쏙옙 JUnit4 (Test Framework) 占쏙옙 Spring Framework 占쏙옙占쏙옙 Test( Unit Test)
+ * 占쏙옙 Spring 占쏙옙 JUnit 4占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 클占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙 占쌓쏙옙트 占쌘드를 占쌜쇽옙 占쏙옙 占쏙옙 占쌍댐옙.
+ * 占쏙옙 @RunWith : Meta-data 占쏙옙 占쏙옙占쏙옙 wiring(占쏙옙占쏙옙,DI) 占쏙옙 占쏙옙체 占쏙옙占쏙옙체 占쏙옙占쏙옙
+ * 占쏙옙 @ContextConfiguration : Meta-data location 占쏙옙占쏙옙
+ * 占쏙옙 @Test : 占쌓쏙옙트 占쏙옙占쏙옙 占쌀쏙옙 占쏙옙占쏙옙
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/commonservice.xml" })
 public class PurchaseServiceTest {
 
-	//==>@RunWith,@ContextConfiguration �̿� Wiring, Test �� instance DI
+	//==>@RunWith,@ContextConfiguration 占싱울옙 Wiring, Test 占쏙옙 instance DI
 	@Autowired
 	@Qualifier("purchaseServiceImpl")
 	private PurchaseService purchaseService;
@@ -39,7 +39,7 @@ public class PurchaseServiceTest {
 	public void testAddPurchase() throws Exception {
 		
 		Product product = new Product();
-		product.setProdNo(10005);
+		product.setProdNo(10022);
 		
 		User user = new User();
 		user.setUserId("user21");
@@ -47,26 +47,22 @@ public class PurchaseServiceTest {
 		Purchase purchase = new Purchase();
 		purchase.setPurchaseProd(product);
 		purchase.setBuyer(user);
-		purchase.setPaymentOption("1");
-		purchase.setReceiverName("testName");
-		purchase.setReceiverPhone("0000");
-		purchase.setDivyAddr("서울");
 		purchase.setDivyRequest("1111");
 		purchase.setDivyDate("12-05-27");
 		
 		purchaseService.addPurchase(purchase);
 		
-//		purchase = purchaseService.getPurchase(1005);
+		purchase = purchaseService.getPurchase(10022);
 
-		//==> console 확인
-//		System.out.println(purchase);
+		//==> console �솗�씤
+		System.out.println("========================================"+purchase);
 		
-		//==> API 확인
+		//==> API �솗�씤
 //		Assert.assertEquals(10041, purchase.getTranNo());
 //		Assert.assertEquals(10021, purchase.getPurchaseProd().getProdNo());
 //		Assert.assertEquals("user01", purchase.getBuyer().getUserId());
 //		Assert.assertEquals("1", purchase.getPaymentOption().trim());
-//		Assert.assertEquals("서울", purchase.getDivyAddr());
+//		Assert.assertEquals("�꽌�슱", purchase.getDivyAddr());
 //		Assert.assertEquals("12-05-27 00:00:00.0", purchase.getDivyDate());
 	}
 	
@@ -74,55 +70,53 @@ public class PurchaseServiceTest {
 	public void testGetPurchase() throws Exception {
 		
 		Purchase purchase = new Purchase();
-		purchase = purchaseService.getPurchase(10041);
+		purchase = purchaseService.getPurchase(10014);
 
-		//==> console 확인
-		System.out.println(purchase);
+		//==> console �솗�씤
+		System.out.println("======================"+purchase);
 		
-		//==> API 확인
-		Assert.assertEquals(10041, purchase.getTranNo());
-		Assert.assertEquals(10021, purchase.getPurchaseProd().getProdNo());
-		Assert.assertEquals("user01", purchase.getBuyer().getUserId());
-		Assert.assertEquals("1", purchase.getPaymentOption().trim());
-		Assert.assertEquals("서울", purchase.getDivyAddr());
-		Assert.assertEquals("12-05-27 00:00:00.0", purchase.getDivyDate());
+		//==> API �솗�씤
+//		Assert.assertEquals(10001, purchase.getTranNo());
+//		Assert.assertEquals(10001, purchase.getPurchaseProd().getProdNo());
+//		Assert.assertEquals("user21", purchase.getBuyer().getUserId());
+//		Assert.assertEquals("�꽌�슱", purchase.getDivyAddr());
 
-		Assert.assertNotNull(purchaseService.getPurchase(10028));
-		Assert.assertNotNull(purchaseService.getPurchase(10029));
+//		Assert.assertNotNull(purchaseService.getPurchase(10007));
+//		Assert.assertNotNull(purchaseService.getPurchase(10008));
 	}
 	
-	//@Test
+	@Test
 	 public void testUpdatePurchase() throws Exception{
 		 
-		Purchase purchase = purchaseService.getPurchase(10041);
+		Purchase purchase = purchaseService.getPurchase(10015);
 		Assert.assertNotNull(purchase);
 		
-		purchase.setPaymentOption("2");
-		purchase.setReceiverName("testName22");
+		purchase.setPaymentOption("1");
+		purchase.setReceiverName("test");
 //		purchase.setReceiverPhone("testName");
-		purchase.setDivyAddr("서울22");
+		purchase.setDivyAddr("12");
 //		purchase.setDivyRequest("1111");
-		purchase.setDivyDate("55-12-27");
+//		purchase.setDivyDate("123");
 		
 		purchaseService.updatePurchase(purchase);
 		
-		purchase = purchaseService.getPurchase(10041);
+		purchase = purchaseService.getPurchase(10014);
 		Assert.assertNotNull(purchase);
 		
-//		//==> console 확인
+//		//==> console �솗�씤
 		System.out.println(purchase);
 			
-		//==> API 확인
+		//==> API �솗�씤
 		Assert.assertEquals(10041, purchase.getTranNo());
 		Assert.assertEquals(10021, purchase.getPurchaseProd().getProdNo());
-		Assert.assertEquals("user01", purchase.getBuyer().getUserId());
+		Assert.assertEquals("user21", purchase.getBuyer().getUserId());
 		Assert.assertEquals("2", purchase.getPaymentOption().trim());
-		Assert.assertEquals("testName22", purchase.getReceiverName().trim());
-		Assert.assertEquals("서울22", purchase.getDivyAddr());
-		Assert.assertEquals("1955-12-27 00:00:00.0", purchase.getDivyDate());
+		Assert.assertEquals("1", purchase.getReceiverName().trim());
+		Assert.assertEquals("12", purchase.getDivyAddr());
+//		Assert.assertEquals("123", purchase.getDivyDate());
 	 }
 	 
-	 //==>  주석을 풀고 실행하면....
+	 //==>  二쇱꽍�쓣 ��怨� �떎�뻾�븯硫�....
 	 //@Test
 	 public void testGetPurchaseListAll() throws Exception{
 		 
@@ -134,7 +128,7 @@ public class PurchaseServiceTest {
 	 	List<Object> list = (List<Object>)map.get("list");
 	 	Assert.assertEquals(3, list.size());
 	 	
-		//==> console 확인
+		//==> console �솗�씤
 	 	System.out.println(list);
 	 	
 	 	Integer totalCount = (Integer)map.get("totalCount");
